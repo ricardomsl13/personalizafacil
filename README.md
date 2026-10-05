@@ -1,5 +1,5 @@
 # PERSONALIZA FACIL 
-
+[![NPM](https://img.shields.io/npm/l/react)](https://github.com/ricardomsl13/personalizafacil/blob/main/LICENSE) 
 # Sobre o projeto
 
 Desenvolver um sistema para gerenciamento de pedidos de uma empresa de 
