@@ -14,6 +14,18 @@ quando o limite estabelecido para determinado dia ou horário for atingido.
 - HTML / CSS / JS / TypeScript
 - vue.js
 - router vue
+  
+## Funcionalidades
+- Cadastrar clientes; 
+- Cadastrar produtos; 
+- Registrar pedidos; 
+- Permitir informar a quantidade desejada; 
+ Permitir selecionar data e horário; 
+- Calcular a capacidade disponível; 
+- Impedir agendamentos acima do limite estabelecido; 
+- Exibir os pedidos para gerenciamento; 
+- Permitir alterar o status do pedido; 
+- Demonstrar o funcionamento completo do fluxo de um pedido. 
 
 ## Front end web
 Pré-requisitos: npm
