@@ -1,4 +1,4 @@
-# PERSONALIZA FACIL 
+# PERSONALIZA FÁCIL 
 [![NPM](https://img.shields.io/npm/l/react)](https://github.com/ricardomsl13/personalizafacil/blob/main/LICENSE) 
 # Sobre o projeto
 
