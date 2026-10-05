@@ -9,11 +9,7 @@ O sistema deverá controlar a capacidade de produção e impedir novos agendamen
 quando o limite estabelecido para determinado dia ou horário for atingido. 
 
 # Tecnologias utilizadas
-## Back end
-- Java
-- Spring Boot
-- JPA / Hibernate
-- Maven
+
 ## Front end
 - HTML / CSS / JS / TypeScript
 - vue.js
