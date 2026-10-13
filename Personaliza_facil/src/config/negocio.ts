@@ -24,3 +24,5 @@ export const ETAPAS = STATUS.slice(0, CANCELADO) // o caminho normal de um pedid
 // Só para demonstração: autenticação real exige um servidor.
 export const USUARIO_ADMIN = 'admin'
 export const SENHA_ADMIN = 'admin123'
+export const ADMIN_CLIENTE_ID = 'admin'
+export const ADMIN_CLIENTE_NOME = 'Administrador'

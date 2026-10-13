@@ -5,12 +5,16 @@ import { STATUS, CANCELADO } from '../config/negocio'
 import { usePedidosStore } from '../stores/pedidos'
 import { useSessaoStore } from '../stores/sessao'
 import { curto } from '../utils/datas'
+import { ADMIN_CLIENTE_ID } from '../config/negocio'
 
 const store = usePedidosStore()
 const sessao = useSessaoStore()
 const router = useRouter()
 const codigo = ref('')
-const meus = computed(() => store.pedidos.filter(p => p.clienteId === sessao.clienteId).reverse())
+const meus = computed(() => {
+  const clienteId = sessao.admin ? ADMIN_CLIENTE_ID : sessao.clienteId
+  return store.pedidos.filter(p => p.clienteId === clienteId).reverse()
+})
 
 const buscar = () => router.push({ name: 'pedido', params: { codigo: codigo.value.trim().toUpperCase() } })
 </script>
@@ -24,7 +28,7 @@ const buscar = () => router.push({ name: 'pedido', params: { codigo: codigo.valu
     </form>
 
     <h2>Meus pedidos</h2>
-    <p v-if="!sessao.clienteId" class="sub">
+    <p v-if="!sessao.clienteId && !sessao.admin" class="sub">
       <RouterLink :to="{ name: 'entrar', query: { redirect: '/acompanhar' } }">Entre</RouterLink> para ver todos os seus pedidos.
     </p>
     <p v-else-if="!meus.length" class="sub">Você ainda não fez nenhum pedido.</p>

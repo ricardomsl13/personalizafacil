@@ -10,7 +10,7 @@ const totalPedidos = (id: string) => store.pedidos.filter(p => p.clienteId === i
 </script>
 
 <template>
-  <section>
+  <section class="admin-clientes">
     <h1>Administração</h1>
     <AdminNav />
     <h2>Cadastrar cliente</h2>

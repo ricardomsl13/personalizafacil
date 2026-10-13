@@ -15,7 +15,7 @@ function adicionar() {
 </script>
 
 <template>
-  <section>
+  <section class="admin-produtos">
     <h1>Administração</h1>
     <AdminNav />
     <h2>Cadastrar produto</h2>

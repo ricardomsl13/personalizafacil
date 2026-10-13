@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { computed, ref, watch } from 'vue'
 import type { Ref } from 'vue'
-import { HORARIOS, CAPACIDADE, PRODUTOS_INICIAIS, CANCELADO } from '../config/negocio'
+import { HORARIOS, CAPACIDADE, PRODUTOS_INICIAIS, CANCELADO, ADMIN_CLIENTE_ID, ADMIN_CLIENTE_NOME } from '../config/negocio'
 import { paraISO } from '../utils/datas'
 import type { Pedido, Rascunho, Cliente, NovoCliente, Produto, SituacaoDia,
               Resultado, ResultadoCliente, ResultadoConfirmacao } from '../types'
@@ -42,7 +42,9 @@ function gerarDemo(dias: string[]): Pedido[] {
   return lista
 }
 
-const novoRascunho = (): Rascunho => ({ produtoId: null, quantidade: 10, data: null, hora: null })
+const novoRascunho = (): Rascunho => ({
+  produtoId: null, quantidade: 10, data: null, hora: null, descricaoPersonalizacao: '', imagemReferencia: null,
+})
 const soDigitos = (s: string) => s.replace(/\D/g, '')
 
 export const usePedidosStore = defineStore('pedidos', () => {
@@ -56,7 +58,7 @@ export const usePedidosStore = defineStore('pedidos', () => {
   const produtosAtivos = computed(() => produtos.value.filter(p => p.ativo))
   const produtoPorId = (id: string | null) => produtos.value.find(p => p.id === id)
   const clientePorId = (id: string | null) => clientes.value.find(c => c.id === id)
-  const nomeCliente = (id: string) => clientePorId(id)?.nome ?? '—'
+  const nomeCliente = (id: string) => id === ADMIN_CLIENTE_ID ? ADMIN_CLIENTE_NOME : clientePorId(id)?.nome ?? '—'
   const buscar = (codigo: string): Pedido | undefined => pedidos.value.find(p => p.codigo === codigo)
 
   // ---- Capacidade (o coração do sistema) ----
@@ -112,8 +114,10 @@ export const usePedidosStore = defineStore('pedidos', () => {
 
   // ---- Pedidos ----
   function confirmar(clienteId: string): ResultadoConfirmacao {
-    const { produtoId, quantidade, data, hora } = rascunho.value
+    const { produtoId, quantidade, data, hora, descricaoPersonalizacao, imagemReferencia } = rascunho.value
     if (!produtoId || !data || !hora) return { ok: false, erro: 'Pedido incompleto. Escolha produto, data e horário.' }
+    if (!descricaoPersonalizacao.trim())
+      return { ok: false, erro: 'Descreva como deseja a personalização.' }
     const produto = produtoPorId(produtoId)
     if (!produto || !produto.ativo) return { ok: false, erro: 'Esse produto não está mais disponível.' }
     // Nunca confie só nos campos da tela: valida de novo aqui.
@@ -123,7 +127,10 @@ export const usePedidosStore = defineStore('pedidos', () => {
     if (disponivel(data, hora) < quantidade)
       return { ok: false, erro: 'Esse horário não tem mais vagas para essa quantidade. Escolha outro.' }
     const codigo = 'PED-' + Math.random().toString(36).slice(2, 7).toUpperCase()
-    pedidos.value.push({ codigo, clienteId, produtoId, precoUnitario: produto.preco, quantidade, data, hora, status: 0 })
+    pedidos.value.push({
+      codigo, clienteId, produtoId, precoUnitario: produto.preco, quantidade, data, hora, status: 0,
+      descricaoPersonalizacao: descricaoPersonalizacao.trim(), imagemReferencia,
+    })
     rascunho.value = novoRascunho()
     return { ok: true, codigo }
   }

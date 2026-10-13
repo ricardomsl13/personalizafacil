@@ -37,7 +37,7 @@ router.beforeEach(to => {
     sessao.abrirLogin(to.fullPath)
     return false
   }
-  if (to.meta.cliente && !sessao.clienteId) {
+  if (to.meta.cliente && !sessao.clienteId && !sessao.admin) {
     sessao.abrirLogin(to.fullPath)
     return false
   }

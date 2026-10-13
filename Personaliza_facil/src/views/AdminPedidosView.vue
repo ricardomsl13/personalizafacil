@@ -23,7 +23,7 @@ function mudar(codigo: string, e: Event) {
 </script>
 
 <template>
-  <section>
+  <section class="admin-pedidos">
     <h1>Administração</h1>
     <AdminNav />
     <div class="chips resumo-status">
