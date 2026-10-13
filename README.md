@@ -14,6 +14,7 @@ quando o limite estabelecido para determinado dia ou horário for atingido.
 - HTML / CSS / JS / TypeScript
 - vue.js
 - router vue
+- Pinia
   
 ## Funcionalidades
 - Cadastrar clientes; 
